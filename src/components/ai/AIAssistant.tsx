@@ -18,12 +18,14 @@ export function AIAssistant() {
   const [messages, setMessages] = useState<Message[]>([
     {
       id: "1",
-      text: "Hello! I'm your AI assistant. I can help you optimize task allocation, predict delays, and suggest resource improvements. How can I help you today?",
+      text: "Welcome to the AEO Command Center! I can generate complete event plans, predict risks, automate task management, and create post-event reports. What would you like me to help you with?",
       isUser: false,
       timestamp: new Date(),
       actions: [
-        { label: "Optimize Tasks", action: () => console.log("Optimizing tasks") },
-        { label: "Check Delays", action: () => console.log("Checking delays") },
+        { label: "Generate Event Plan", action: () => console.log("Generating event plan") },
+        { label: "Predict Risks", action: () => console.log("Analyzing risks") },
+        { label: "Optimize Resources", action: () => console.log("Optimizing resources") },
+        { label: "Create Report", action: () => console.log("Creating report") },
       ]
     }
   ]);
@@ -42,17 +44,42 @@ export function AIAssistant() {
     setMessages(prev => [...prev, userMessage]);
     setInputValue("");
 
-    // Simulate AI response
+    // Simulate AI response based on AEO capabilities
     setTimeout(() => {
+      const responses = [
+        {
+          text: "I've analyzed your request. Based on current event data, I can generate a complete task breakdown with dependencies and optimal scheduling. Would you like me to proceed?",
+          actions: [
+            { label: "Generate Tasks", action: () => console.log("Generating tasks") },
+            { label: "Set Dependencies", action: () => console.log("Setting dependencies") },
+            { label: "Optimize Timeline", action: () => console.log("Optimizing timeline") },
+          ]
+        },
+        {
+          text: "Risk analysis complete: I've identified 2 potential bottlenecks and 3 optimization opportunities. Shall I implement the automated solutions?",
+          actions: [
+            { label: "Auto-Resolve Risks", action: () => console.log("Auto-resolving risks") },
+            { label: "View Predictions", action: () => console.log("Viewing predictions") },
+            { label: "Schedule Prevention", action: () => console.log("Scheduling prevention") },
+          ]
+        },
+        {
+          text: "I can create comprehensive post-event analysis including sentiment analysis, attendance patterns, and ROI calculations. Ready to generate?",
+          actions: [
+            { label: "Generate Report", action: () => console.log("Generating report") },
+            { label: "Analyze Sentiment", action: () => console.log("Analyzing sentiment") },
+            { label: "Export Data", action: () => console.log("Exporting data") },
+          ]
+        }
+      ];
+      
+      const randomResponse = responses[Math.floor(Math.random() * responses.length)];
       const aiResponse: Message = {
         id: (Date.now() + 1).toString(),
-        text: "I understand you need help with that. Let me analyze your current event data and provide recommendations.",
+        text: randomResponse.text,
         isUser: false,
         timestamp: new Date(),
-        actions: [
-          { label: "View Suggestions", action: () => console.log("Viewing suggestions") },
-          { label: "Apply Changes", action: () => console.log("Applying changes") },
-        ]
+        actions: randomResponse.actions
       };
       setMessages(prev => [...prev, aiResponse]);
     }, 1000);
